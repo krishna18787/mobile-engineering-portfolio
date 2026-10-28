@@ -181,6 +181,7 @@
     .form-submit { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
     .form-submit button { border: 0; background: white; color: #155E52; border-radius: 10px; padding: 10px 13px; font-size: 11px; font-weight: 800; }
     .demo-note { font-size: 9px; color: rgb(255 255 255 / 65%); line-height: 1.4; }
+    .form-submit button:disabled { opacity: .65; cursor: wait; }
     .form-message { display: none; margin-top: 12px; color: white; font-size: 11px; padding: 9px 10px; background: rgb(255 255 255 / 12%); border-radius: 9px; }
 
     .site-footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: 11px; }
@@ -385,11 +386,13 @@
           <div class="contact-panel">
             <div><span class="eyebrow">Have a challenge in mind?</span><h2>Let's make the complex feel simple.</h2><p>Share a product problem, an architecture question, or a team challenge. Start with the problem; the right solution can follow.</p></div>
             <form class="contact-form" id="contactForm">
-              <label for="contactName">Your name</label><input id="contactName" name="name" placeholder="How should I address you?" required>
-              <label for="contactEmail">Email address</label><input id="contactEmail" name="email" type="email" placeholder="you@company.com" required>
-              <label for="contactMessage">What are you working on?</label><textarea id="contactMessage" name="message" placeholder="A little context helps..." required></textarea>
-              <div class="form-submit"><span class="demo-note">Interactive preview only.<br>This form doesn't send data.</span><button type="submit">Preview message ↗</button></div>
-              <div class="form-message" id="formMessage" role="status"></div>
+              <label for="contactName">Your name</label><input id="contactName" name="name" autocomplete="name" maxlength="100" placeholder="How should I address you?" required>
+              <label for="contactEmail">Email address</label><input id="contactEmail" name="email" type="email" autocomplete="email" maxlength="254" placeholder="you@company.com" required>
+              <label for="contactSubject">Subject</label><input id="contactSubject" name="subject" maxlength="150" placeholder="e.g. Mobile engineering opportunity" required>
+              <label for="contactMessage">Your message</label><textarea id="contactMessage" name="message" maxlength="5000" placeholder="Tell me a little about your enquiry..." required></textarea>
+              <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label for="contactWebsite">Leave this field empty</label><input id="contactWebsite" name="website" tabindex="-1" autocomplete="off"></div>
+              <div class="form-submit"><span class="demo-note">Your enquiry will be emailed securely.<br>Required fields marked by your browser.</span><button id="contactSubmit" type="submit">Send enquiry ↗</button></div>
+              <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
             </form>
           </div>
         </div>
@@ -533,13 +536,39 @@
 
       const form = document.getElementById("contactForm");
       const formMessage = document.getElementById("formMessage");
-      form.addEventListener("submit", function (event) {
+      const submitButton = document.getElementById("contactSubmit");
+      form.addEventListener("submit", async function (event) {
         event.preventDefault();
         if (!form.reportValidity()) return;
-        const name = document.getElementById("contactName").value.trim();
-        formMessage.textContent = "Thanks, " + name + ". Your sample message is ready in this preview, but it has not been sent or stored.";
+        const payload = {
+          name: document.getElementById("contactName").value.trim(),
+          email: document.getElementById("contactEmail").value.trim(),
+          subject: document.getElementById("contactSubject").value.trim(),
+          message: document.getElementById("contactMessage").value.trim(),
+          website: document.getElementById("contactWebsite").value
+        };
         formMessage.style.display = "block";
-        showToast("Preview only — no message was sent.");
+        formMessage.textContent = "Sending your enquiry…";
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending…";
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const result = await response.json().catch(function () { return {}; });
+          if (!response.ok) throw new Error(result.error || "Unable to send your enquiry right now.");
+          form.reset();
+          formMessage.textContent = "Thank you, " + payload.name + ". Your enquiry has been sent successfully. I'll get back to you as soon as possible.";
+          showToast("Enquiry sent successfully.");
+        } catch (error) {
+          formMessage.textContent = error.message || "Sorry, your enquiry could not be sent. Please try again later.";
+          showToast("Unable to send enquiry.");
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = "Send enquiry ↗";
+        }
       });
 
       const toast = document.getElementById("toast");
