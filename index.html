@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Krishna Kumar Verma — mobile engineering professional with 12+ years of experience in native Android, React Native, architecture, and AI-connected systems.">
+  <title>Krishna Kumar Verma — Mobile Engineering Portfolio</title>
+  <style>
+    :root {
+      --site-primary: #155E52;
+      --site-secondary: #DCEAE4;
+      --site-background: #F5F7F4;
+      --site-on-primary: #FFFFFF;
+      --site-on-secondary: #163E36;
+      --site-on-background: #172D29;
+      --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --site-font-heading: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --site-heading-scale: 1;
+      --site-spacing-scale: 1;
+      --site-radius-scale: 1;
+      --site-decoration-opacity: 1;
+      --surface: light-dark(#FFFFFF, #18221F);
+      --surface-muted: light-dark(#EDF2EE, #202D28);
+      --text: light-dark(#172D29, #EAF2ED);
+      --muted: light-dark(#5D706A, #AABAB2);
+      --line: light-dark(#DCE5DF, #34443D);
+      --soft-primary: light-dark(#E5F0EA, #213B33);
+      --shadow: 0 18px 48px rgb(18 49 41 / 9%);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      font-family: var(--site-font-body);
+      background: light-dark(#F5F7F4, #101815);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    .app-root {
+      min-height: 100vh;
+      width: 100%;
+      background-color: light-dark(var(--site-background), #101815);
+      color: light-dark(var(--site-on-background), #EAF2ED);
+      border-radius: 0;
+      overflow: clip;
+      position: relative;
+    }
+    .container { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: light-dark(rgb(245 247 244 / 88%), rgb(16 24 21 / 88%));
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 760; letter-spacing: -0.035em; }
+    .brand-mark { width: 38px; height: 38px; border-radius: 13px; background: var(--site-primary); color: var(--site-on-primary); display: grid; place-items: center; box-shadow: 0 8px 18px rgb(21 94 82 / 18%); }
+    .brand-mark svg { width: 21px; height: 21px; }
+    .brand small { display: block; color: var(--muted); font-weight: 550; letter-spacing: .02em; font-size: 10px; line-height: 1.2; margin-top: 2px; }
+    .nav-links { display: flex; gap: 30px; align-items: center; color: var(--muted); font-size: 13px; font-weight: 650; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--site-primary); }
+    .nav-cta, .button-primary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid var(--site-primary); border-radius: calc(14px * var(--site-radius-scale)); padding: 11px 16px; background: var(--site-primary); color: var(--site-on-primary); font-size: 13px; font-weight: 700; transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+    .nav-cta:hover, .button-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgb(21 94 82 / 20%); }
+    .button-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid var(--line); border-radius: calc(14px * var(--site-radius-scale)); padding: 11px 16px; background: var(--surface); color: var(--text); font-size: 13px; font-weight: 700; transition: transform .2s ease, border .2s ease; }
+    .button-secondary:hover { transform: translateY(-2px); border-color: var(--site-primary); }
+    .button-primary svg, .button-secondary svg, .nav-cta svg { width: 16px; height: 16px; }
+
+    .hero { padding: calc(88px * var(--site-spacing-scale)) 0 calc(84px * var(--site-spacing-scale)); position: relative; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); align-items: center; gap: 70px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--site-primary); font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 24px; height: 2px; background: currentColor; border-radius: 2px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: var(--site-font-heading); }
+    h1 { margin: 20px 0 22px; font-size: clamp(43px, 5.3vw, 70px); line-height: 1.035; letter-spacing: -.065em; font-weight: 790; max-width: 690px; }
+    h1 .highlight { color: var(--site-primary); position: relative; white-space: nowrap; }
+    .hero-copy { max-width: 590px; color: var(--muted); font-size: 17px; line-height: 1.8; margin-bottom: 29px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-meta { display: flex; align-items: center; gap: 18px; margin-top: 30px; font-size: 12px; color: var(--muted); }
+    .online-dot { width: 8px; height: 8px; background: #299E6B; display: inline-block; border-radius: 50%; margin-right: 7px; box-shadow: 0 0 0 4px rgb(41 158 107 / 12%); }
+    .meta-divider { width: 1px; height: 19px; background: var(--line); }
+
+    .visual-wrap { position: relative; min-height: 410px; display: grid; place-items: center; }
+    .orb { position: absolute; width: 330px; height: 330px; border-radius: 50%; background: radial-gradient(circle at 35% 28%, light-dark(#E7F1EA, #294A3D), light-dark(#D4E5DA, #172D25) 72%); opacity: var(--site-decoration-opacity); }
+    .orb::after { content: ""; position: absolute; inset: 25px; border: 1px dashed light-dark(rgb(21 94 82 / 25%), rgb(104 183 158 / 28%)); border-radius: 50%; }
+    .code-card { width: min(100%, 375px); position: relative; z-index: 1; border: 1px solid var(--line); border-radius: calc(22px * var(--site-radius-scale)); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; transform: rotate(1.8deg); }
+    .code-card-top { height: 48px; padding: 0 17px; display: flex; align-items: center; border-bottom: 1px solid var(--line); gap: 6px; }
+    .window-dot { width: 8px; height: 8px; border-radius: 50%; background: #D5A38B; }
+    .window-dot:nth-child(2) { background: #E6C36D; }
+    .window-dot:nth-child(3) { background: #8BBE9A; }
+    .file-name { color: var(--muted); font-size: 10px; margin-left: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .code-content { padding: 23px 22px 19px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; line-height: 2; }
+    .code-line { display: block; white-space: nowrap; }
+    .line-no { display: inline-block; width: 25px; color: light-dark(#A6B2AB, #66776E); user-select: none; }
+    .token-key { color: light-dark(#7C56AB, #C8A0F1); }
+    .token-fn { color: light-dark(#146C60, #6BD0B4); }
+    .token-str { color: light-dark(#B76532, #F1AE84); }
+    .token-comment { color: var(--muted); }
+    .code-status { display: flex; gap: 8px; align-items: center; background: var(--surface-muted); border-top: 1px solid var(--line); padding: 12px 20px; font-size: 10px; color: var(--muted); }
+    .status-check { display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: #DDF2E5; color: #1B784A; font-weight: 900; }
+    .float-chip { position: absolute; z-index: 2; background: var(--surface); border: 1px solid var(--line); border-radius: 15px; padding: 11px 13px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 9px; }
+    .float-chip.one { top: 37px; right: -8px; }
+    .float-chip.two { bottom: 35px; left: -16px; }
+    .chip-icon { width: 31px; height: 31px; border-radius: 10px; display: grid; place-items: center; background: var(--soft-primary); color: var(--site-primary); }
+    .chip-icon svg { width: 17px; height: 17px; }
+    .float-chip strong { display: block; font-size: 11px; line-height: 1.35; }
+    .float-chip small { display: block; color: var(--muted); font-size: 10px; line-height: 1.35; }
+
+    .tech-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: light-dark(#EFF3EF, #151F1B); }
+    .tech-inner { min-height: 98px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .tech-label { max-width: 145px; color: var(--muted); font-size: 11px; line-height: 1.5; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+    .tech-list { flex: 1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-around; gap: 18px 25px; }
+    .tech-item { display: inline-flex; align-items: center; gap: 8px; font-weight: 750; font-size: 13px; letter-spacing: -.025em; color: light-dark(#4E625B, #C5D2CA); }
+    .tech-item svg { width: 19px; height: 19px; color: var(--site-primary); }
+
+    section.content-section { padding: calc(94px * var(--site-spacing-scale)) 0; }
+    .section-heading { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 34px; }
+    .section-heading h2 { font-size: clamp(30px, 3vw, 43px); line-height: 1.12; letter-spacing: -.055em; margin: 13px 0 0; }
+    .section-heading p { max-width: 390px; color: var(--muted); font-size: 14px; margin-bottom: 4px; }
+    .project-toolbar { display: flex; justify-content: space-between; gap: 20px; align-items: center; margin-bottom: 22px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-button { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; color: var(--muted); padding: 8px 13px; font-size: 11px; font-weight: 750; transition: .2s ease; }
+    .filter-button[aria-pressed="true"] { background: var(--site-primary); border-color: var(--site-primary); color: var(--site-on-primary); }
+    .project-count { color: var(--muted); font-size: 11px; white-space: nowrap; }
+    .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .project-card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(20px * var(--site-radius-scale)); overflow: hidden; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; display: flex; flex-direction: column; min-height: 332px; }
+    .project-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: light-dark(#B5D0C2, #477665); }
+    .project-art { height: 136px; background: var(--surface-muted); position: relative; padding: 18px; overflow: hidden; }
+    .project-art::before { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 1px solid light-dark(rgb(21 94 82 / 13%), rgb(110 180 151 / 19%)); right: -30px; top: -75px; opacity: var(--site-decoration-opacity); }
+    .project-art::after { content: ""; position: absolute; width: 115px; height: 115px; border-radius: 50%; border: 1px solid light-dark(rgb(21 94 82 / 16%), rgb(110 180 151 / 22%)); right: 2px; top: -41px; opacity: var(--site-decoration-opacity); }
+    .art-badge { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 7px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 7px 9px; color: var(--text); font-size: 10px; font-weight: 750; }
+    .art-badge svg { width: 15px; height: 15px; color: var(--site-primary); }
+    .art-graphic { position: absolute; right: 22px; bottom: -12px; z-index: 2; width: 132px; height: 79px; border: 1px solid light-dark(#C1D6C9, #385447); background: light-dark(rgb(255 255 255 / 88%), rgb(24 37 31 / 92%)); box-shadow: 0 7px 22px rgb(21 51 39 / 10%); border-radius: 12px 12px 0 0; padding: 12px; transform: rotate(-5deg); }
+    .art-graphic .bar { height: 5px; border-radius: 5px; background: light-dark(#DCE8E0, #344B3F); margin-bottom: 6px; width: 75%; }
+    .art-graphic .bar:nth-child(2) { width: 54%; background: light-dark(#8BB8A2, #397D64); }
+    .art-graphic .bar:nth-child(3) { width: 88%; }
+    .art-graphic .bar:nth-child(4) { width: 38%; background: light-dark(#B9D5C4, #4F9277); }
+    .project-body { padding: 21px 21px 19px; display: flex; flex-direction: column; flex: 1; }
+    .project-type { color: var(--site-primary); text-transform: uppercase; font-size: 9px; font-weight: 850; letter-spacing: .12em; margin-bottom: 8px; }
+    .project-body h3 { font-size: 18px; letter-spacing: -.035em; margin-bottom: 9px; line-height: 1.25; }
+    .project-body p { color: var(--muted); font-size: 12px; line-height: 1.75; margin-bottom: 19px; }
+    .project-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag { background: var(--surface-muted); color: var(--muted); font-size: 9px; font-weight: 700; border-radius: 6px; padding: 4px 6px; }
+    .open-project { width: 32px; height: 32px; border: 1px solid var(--line); background: var(--surface); color: var(--site-primary); border-radius: 10px; display: grid; place-items: center; flex: 0 0 auto; }
+    .open-project:hover { background: var(--site-primary); color: var(--site-on-primary); }
+    .open-project svg { width: 15px; height: 15px; }
+    .empty-state { display: none; grid-column: 1 / -1; padding: 40px; text-align: center; border: 1px dashed var(--line); border-radius: 18px; color: var(--muted); }
+
+    .approach-section { background: light-dark(#EDF2EE, #151F1B); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .approach-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; }
+    .approach-intro h2 { font-size: clamp(30px, 3vw, 43px); line-height: 1.12; letter-spacing: -.055em; margin: 15px 0 19px; }
+    .approach-intro p { color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .approach-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .approach-step { background: var(--surface); border: 1px solid var(--line); border-radius: calc(17px * var(--site-radius-scale)); padding: 22px; }
+    .step-number { color: var(--site-primary); font-size: 10px; font-weight: 850; letter-spacing: .12em; }
+    .step-icon { width: 38px; height: 38px; border-radius: 12px; background: var(--soft-primary); color: var(--site-primary); display: grid; place-items: center; margin: 18px 0 14px; }
+    .step-icon svg { width: 19px; height: 19px; }
+    .approach-step h3 { margin-bottom: 8px; font-size: 15px; letter-spacing: -.025em; }
+    .approach-step p { color: var(--muted); font-size: 12px; line-height: 1.7; margin-bottom: 0; }
+
+    .contact-section { padding-bottom: calc(82px * var(--site-spacing-scale)) !important; }
+    .contact-panel { background: var(--site-primary); color: var(--site-on-primary); border-radius: calc(26px * var(--site-radius-scale)); padding: 48px; display: grid; grid-template-columns: 1fr .7fr; gap: 40px; position: relative; overflow: hidden; }
+    .contact-panel::after { content: ""; position: absolute; right: -80px; top: -180px; width: 390px; height: 390px; border: 1px solid rgb(255 255 255 / 18%); border-radius: 50%; box-shadow: 0 0 0 38px rgb(255 255 255 / 5%), 0 0 0 76px rgb(255 255 255 / 4%); pointer-events: none; opacity: var(--site-decoration-opacity); }
+    .contact-panel .eyebrow { color: light-dark(#C4E7D6, #C4E7D6); }
+    .contact-panel h2 { font-size: clamp(30px, 3.5vw, 47px); line-height: 1.1; letter-spacing: -.055em; margin: 15px 0 15px; max-width: 510px; }
+    .contact-panel p { color: rgb(255 255 255 / 78%); font-size: 13px; max-width: 475px; margin-bottom: 0; }
+    .contact-form { z-index: 1; position: relative; background: rgb(255 255 255 / 10%); border: 1px solid rgb(255 255 255 / 19%); border-radius: 18px; padding: 21px; align-self: center; }
+    .contact-form label { display: block; margin-bottom: 6px; font-size: 11px; color: rgb(255 255 255 / 88%); font-weight: 700; }
+    .contact-form input, .contact-form textarea { display: block; width: 100%; border: 1px solid rgb(255 255 255 / 25%); border-radius: 10px; background: rgb(255 255 255 / 10%); color: white; outline: none; padding: 10px 11px; margin-bottom: 13px; font-size: 12px; }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgb(255 255 255 / 60%); }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: white; box-shadow: 0 0 0 3px rgb(255 255 255 / 13%); }
+    .contact-form textarea { min-height: 76px; resize: vertical; }
+    .form-submit { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .form-submit button { border: 0; background: white; color: #155E52; border-radius: 10px; padding: 10px 13px; font-size: 11px; font-weight: 800; }
+    .demo-note { font-size: 9px; color: rgb(255 255 255 / 65%); line-height: 1.4; }
+    .form-message { display: none; margin-top: 12px; color: white; font-size: 11px; padding: 9px 10px; background: rgb(255 255 255 / 12%); border-radius: 9px; }
+
+    .site-footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: 11px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a:hover { color: var(--site-primary); }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 60; display: none; align-items: center; justify-content: center; background: rgb(4 15 11 / 60%); padding: 20px; backdrop-filter: blur(7px); }
+    .modal-backdrop.is-open { display: flex; }
+    .modal { width: min(560px, 100%); max-height: min(80vh, 700px); overflow: auto; background: var(--surface); border: 1px solid var(--line); color: var(--text); border-radius: 22px; padding: 28px; box-shadow: 0 30px 100px rgb(0 0 0 / 25%); animation: modalIn .2s ease-out; }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(8px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .modal-top { display: flex; justify-content: space-between; gap: 15px; align-items: start; }
+    .modal h3 { font-size: 25px; letter-spacing: -.045em; line-height: 1.15; margin: 7px 0 13px; }
+    .modal p, .modal li { color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .modal ul { padding-left: 19px; }
+    .modal-close { width: 35px; height: 35px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-muted); color: var(--text); flex: 0 0 auto; }
+    .modal-close svg { width: 16px; height: 16px; }
+    .modal-tags { display: flex; gap: 7px; flex-wrap: wrap; margin: 18px 0 22px; }
+    .modal-tags span { background: var(--soft-primary); color: var(--site-primary); border-radius: 7px; padding: 6px 8px; font-size: 10px; font-weight: 800; }
+    .toast { position: fixed; z-index: 80; bottom: 22px; left: 50%; transform: translate(-50%, 15px); opacity: 0; pointer-events: none; padding: 11px 16px; border-radius: 12px; background: var(--text); color: light-dark(#FFFFFF, #101815); font-size: 12px; box-shadow: var(--shadow); transition: .25s ease; max-width: calc(100% - 30px); text-align: center; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .mobile-menu-button { display: none; border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 10px; width: 40px; height: 40px; place-items: center; }
+    .mobile-menu-button svg { width: 19px; height: 19px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid light-dark(#78B8A1, #8AD9BE); outline-offset: 3px; }
+
+    @media (max-width: 980px) {
+      .hero-grid { gap: 35px; }
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .approach-grid { gap: 35px; }
+      .contact-panel { padding: 35px; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 32px, 560px); }
+      .nav { min-height: 68px; }
+      .mobile-menu-button { display: grid; }
+      .nav-cta { display: none; }
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; padding: 18px 24px 22px; border-bottom: 1px solid var(--line); background: light-dark(#F5F7F4, #101815); flex-direction: column; align-items: flex-start; gap: 17px; }
+      .nav-links.open { display: flex; }
+      .hero { padding: 62px 0 55px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 22px; }
+      h1 { font-size: clamp(42px, 11vw, 59px); max-width: 570px; }
+      .hero-copy { font-size: 15px; }
+      .visual-wrap { min-height: 350px; margin: 0 8px; }
+      .orb { width: 275px; height: 275px; }
+      .code-card { max-width: 340px; }
+      .float-chip.one { right: -1px; top: 16px; }
+      .float-chip.two { left: -4px; bottom: 15px; }
+      .tech-inner { padding: 22px 0; align-items: flex-start; flex-direction: column; gap: 16px; }
+      .tech-label { max-width: none; }
+      .tech-list { justify-content: flex-start; gap: 15px 21px; }
+      section.content-section { padding: 65px 0; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 14px; margin-bottom: 25px; }
+      .section-heading p { margin-bottom: 0; }
+      .project-toolbar { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { min-height: 0; }
+      .approach-grid { grid-template-columns: 1fr; gap: 26px; }
+      .approach-steps { gap: 12px; }
+      .approach-step { padding: 17px; }
+      .contact-panel { grid-template-columns: 1fr; gap: 26px; padding: 28px 22px; }
+      .contact-panel::after { right: -180px; top: -210px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 390px) {
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions a { width: 100%; }
+      .hero-meta { gap: 10px; flex-wrap: wrap; }
+      .code-content { padding: 18px 12px; font-size: 10px; }
+      .approach-steps { grid-template-columns: 1fr; }
+      .filters { gap: 6px; }
+      .filter-button { padding: 7px 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-root" id="top">
+    <header class="site-header">
+      <div class="container nav">
+        <a href="#top" class="brand" aria-label="Krishna Kumar Verma home">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4 3 12l4 8M17 4l4 8-4 8M14 3l-4 18" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Krishna Kumar Verma<small>MOBILE ENGINEERING · ARCHITECTURE</small></span>
+        </a>
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+          <a href="#work">Selected work</a>
+          <a href="#approach">Approach</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="nav-cta" href="https://github.com/krishna18787" target="_blank" rel="noreferrer">GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <button class="mobile-menu-button" id="mobileMenuButton" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">Senior mobile engineer · Technical leadership</span>
+            <h1>Krishna Kumar Verma<span class="highlight">.</span></h1>
+            <p class="hero-copy">Mobile engineering professional with 12+ years of experience building Android and cross-platform applications across fintech, aviation, travel, food-tech, and event platforms. I focus on Kotlin, Java, React Native, maintainable architecture, performance, and dependable delivery.</p>
+            <div class="hero-actions">
+              <a href="#work" class="button-primary">Explore selected work <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a href="https://www.linkedin.com/in/krishna-kumar-verma/" target="_blank" rel="noreferrer" class="button-secondary">Connect on LinkedIn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+            <div class="hero-meta"><span><i class="online-dot"></i>12+ years in mobile engineering</span><span class="meta-divider"></span><span>Native Android · React Native · Technical leadership</span></div>
+          </div>
+          <div class="visual-wrap" aria-label="Decorative code editor illustration">
+            <div class="orb" aria-hidden="true"></div>
+            <div class="code-card">
+              <div class="code-card-top"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="file-name">AppArchitecture.kt</span></div>
+              <div class="code-content" aria-label="Example architecture code">
+                <span class="code-line"><span class="line-no">01</span><span class="token-key">class</span> <span class="token-fn">ProductExperience</span> {</span>
+                <span class="code-line"><span class="line-no">02</span>&nbsp;&nbsp;<span class="token-key">val</span> architecture = <span class="token-str">"modular"</span></span>
+                <span class="code-line"><span class="line-no">03</span>&nbsp;&nbsp;<span class="token-key">val</span> quality = <span class="token-str">"measurable"</span></span>
+                <span class="code-line"><span class="line-no">04</span>&nbsp;&nbsp;<span class="token-key">val</span> delivery = <span class="token-str">"iterative"</span></span>
+                <span class="code-line"><span class="line-no">05</span></span>
+                <span class="code-line"><span class="line-no">06</span>&nbsp;&nbsp;<span class="token-key">fun</span> <span class="token-fn">build</span>() =</span>
+                <span class="code-line"><span class="line-no">07</span>&nbsp;&nbsp;&nbsp;&nbsp;simpleForUsers()</span>
+                <span class="code-line"><span class="line-no">08</span>}</span>
+              </div>
+              <div class="code-status"><span class="status-check">✓</span> Thoughtful design. Clean boundaries. Reliable delivery.</div>
+            </div>
+            <div class="float-chip one"><span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" stroke-linecap="round"/></svg></span><span><strong>Architecture first</strong><small>Built to evolve</small></span></div>
+            <div class="float-chip two"><span class="chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18V6m0 12h16M8 15l3-4 3 2 5-7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong>Quality in the loop</strong><small>Performance + testing</small></span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="tech-strip">
+        <div class="container tech-inner">
+          <div class="tech-label">Tools I like building with</div>
+          <div class="tech-list">
+            <span class="tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M10 18h4" stroke-linecap="round"/></svg>Android · Kotlin</span>
+            <span class="tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 3.5 7.5 12 12l8.5-4.5L12 3Z"/><path d="m3.5 12 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5" stroke-linejoin="round"/></svg>React Native</span>
+            <span class="tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4zM8 9l3 3-3 3M13 15h3" stroke-linecap="round" stroke-linejoin="round"/></svg>TypeScript</span>
+            <span class="tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8" stroke-linecap="round"/></svg>LLM · MCP</span>
+            <span class="tech-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7" stroke-linecap="round" stroke-linejoin="round"/></svg>CI/CD · Observability</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="content-section" id="work">
+        <div class="container">
+          <div class="section-heading">
+            <div><span class="eyebrow">Selected work</span><h2>Problems worth solving.</h2></div>
+            <p>Illustrative engineering case studies based on my core technical areas. These are architecture examples, not claims about specific client deliveries; I can add verified project details and outcomes here.</p>
+          </div>
+          <div class="project-toolbar">
+            <div class="filters" role="group" aria-label="Filter projects">
+              <button class="filter-button" data-filter="all" aria-pressed="true">All work</button>
+              <button class="filter-button" data-filter="android" aria-pressed="false">Android</button>
+              <button class="filter-button" data-filter="cross-platform" aria-pressed="false">Cross-platform</button>
+              <button class="filter-button" data-filter="ai" aria-pressed="false">AI & systems</button>
+            </div>
+            <span class="project-count" id="projectCount" aria-live="polite">Showing 6 concepts</span>
+          </div>
+          <div class="project-grid" id="projectGrid">
+            <article class="project-card" data-category="android" data-project="android-platform">
+              <div class="project-art"><span class="art-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M10 18h4" stroke-linecap="round"/></svg>Native Android</span><div class="art-graphic"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+              <div class="project-body"><div class="project-type">Architecture concept</div><h3>Modular Android platform</h3><p>Organize features around clean boundaries, predictable state, and testable business logic as the application grows.</p><div class="project-footer"><div class="tag-list"><span class="tag">Kotlin</span><span class="tag">Compose</span><span class="tag">MVVM</span></div><button class="open-project" data-open="android-platform" aria-label="Explore modular Android platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+            </article>
+            <article class="project-card" data-category="cross-platform" data-project="react-native">
+              <div class="project-art"><span class="art-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="2.4"/><ellipse cx="12" cy="12" rx="10" ry="4.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(120 12 12)"/></svg>Cross-platform</span><div class="art-graphic"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+              <div class="project-body"><div class="project-type">Product delivery concept</div><h3>React Native at scale</h3><p>Share product logic without hiding platform differences, with a focus on navigation, state, performance, and release safety.</p><div class="project-footer"><div class="tag-list"><span class="tag">React Native</span><span class="tag">TypeScript</span><span class="tag">CI/CD</span></div><button class="open-project" data-open="react-native" aria-label="Explore React Native at scale"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+            </article>
+            <article class="project-card" data-category="ai" data-project="mcp-workflows">
+              <div class="project-art"><span class="art-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4M5 5l2.8 2.8m8.4 8.4L19 19M19 5l-2.8 2.8M7.8 16.2 5 19" stroke-linecap="round"/></svg>AI-connected workflows</span><div class="art-graphic"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+              <div class="project-body"><div class="project-type">Integration concept</div><h3>LLM + MCP workflow</h3><p>Connect an assistant to clearly scoped tools and structured resources, with explicit permissions and observable outcomes.</p><div class="project-footer"><div class="tag-list"><span class="tag">MCP</span><span class="tag">Tools</span><span class="tag">LLM</span></div><button class="open-project" data-open="mcp-workflows" aria-label="Explore LLM and MCP workflow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+            </article>
+            <article class="project-card" data-category="android" data-project="offline-first">
+              <div class="project-art"><span class="art-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h11M4 17h7" stroke-linecap="round"/><circle cx="19" cy="17" r="3"/></svg>Resilient apps</span><div class="art-graphic"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+              <div class="project-body"><div class="project-type">Reliability concept</div><h3>Offline-first data flow</h3><p>Keep user journeys reliable with local persistence, sync boundaries, retry rules, and visible conflict-handling states.</p><div class="project-footer"><div class="tag-list"><span class="tag">Room</span><span class="tag">WorkManager</span><span class="tag">Sync</span></div><button class="open-project" data-open="offline-first" aria-label="Explore offline-first data flow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+            </article>
+            <article class="project-card" data-category="cross-platform" data-project="quality-loop">
+              <div class="project-art"><span class="art-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10"/></svg>Engineering quality</span><div class="art-graphic"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+              <div class="project-body"><div class="project-type">Developer experience</div><h3>Performance & quality loop</h3><p>Use release checks, crash and performance signals, and focused testing to make quality part of delivery rather than a final step.</p><div class="project-footer"><div class="tag-list"><span class="tag">Testing</span><span class="tag">Crashlytics</span><span class="tag">CI/CD</span></div><button class="open-project" data-open="quality-loop" aria-label="Explore performance and quality loop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+            </article>
+            <article class="project-card" data-category="ai" data-project="rag-knowledge">
+              <div class="project-art"><span class="art-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4zM8 9h8M8 12h5M8 15h7" stroke-linecap="round"/><path d="m16 3 2 2-2 2" stroke-linecap="round" stroke-linejoin="round"/></svg>Knowledge systems</span><div class="art-graphic"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+              <div class="project-body"><div class="project-type">Applied AI concept</div><h3>Grounded knowledge assistant</h3><p>Retrieve relevant context before generation, then evaluate answers for relevance, latency, and cost instead of relying on prompts alone.</p><div class="project-footer"><div class="tag-list"><span class="tag">RAG</span><span class="tag">Embeddings</span><span class="tag">Evaluation</span></div><button class="open-project" data-open="rag-knowledge" aria-label="Explore grounded knowledge assistant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+            </article>
+            <div class="empty-state" id="emptyState">No concepts in this category yet. Try another filter.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section approach-section" id="approach">
+        <div class="container approach-grid">
+          <div class="approach-intro"><span class="eyebrow">How I work</span><h2>Good engineering is a team sport.</h2><p>Strong delivery comes from making trade-offs explicit, keeping feedback loops short, and helping the team understand the system—not just the next ticket.</p><a href="#contact" class="button-secondary">Start a conversation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          <div class="approach-steps">
+            <article class="approach-step"><span class="step-number">01 / ALIGN</span><span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H8l-4 3V5Z" stroke-linejoin="round"/><path d="M8 9h8M8 13h5" stroke-linecap="round"/></svg></span><h3>Clarify the problem</h3><p>Understand user needs, constraints, success measures, and edge cases before choosing a solution.</p></article>
+            <article class="approach-step"><span class="step-number">02 / DESIGN</span><span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="8" height="6" rx="1"/><rect x="13" y="14" width="8" height="6" rx="1"/><path d="M7 10v4h10v4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>Make boundaries clear</h3><p>Choose architecture that balances simplicity today with the change the product is likely to need.</p></article>
+            <article class="approach-step"><span class="step-number">03 / DELIVER</span><span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10"/></svg></span><h3>Ship in small steps</h3><p>Use automated checks, focused reviews, and observable releases to reduce surprises.</p></article>
+            <article class="approach-step"><span class="step-number">04 / IMPROVE</span><span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 3 8-9" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 5h6v6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>Learn from the signal</h3><p>Review real-world behaviour, support the team, and improve the system incrementally.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section contact-section" id="contact">
+        <div class="container">
+          <div class="contact-panel">
+            <div><span class="eyebrow">Have a challenge in mind?</span><h2>Let's make the complex feel simple.</h2><p>Share a product problem, an architecture question, or a team challenge. Start with the problem; the right solution can follow.</p></div>
+            <form class="contact-form" id="contactForm">
+              <label for="contactName">Your name</label><input id="contactName" name="name" placeholder="How should I address you?" required>
+              <label for="contactEmail">Email address</label><input id="contactEmail" name="email" type="email" placeholder="you@company.com" required>
+              <label for="contactMessage">What are you working on?</label><textarea id="contactMessage" name="message" placeholder="A little context helps..." required></textarea>
+              <div class="form-submit"><span class="demo-note">Interactive preview only.<br>This form doesn't send data.</span><button type="submit">Preview message ↗</button></div>
+              <div class="form-message" id="formMessage" role="status"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="container footer-inner"><span>© 2026 · Krishna Kumar Verma · Mobile Engineering Portfolio</span><div class="footer-links"><a href="https://github.com/krishna18787" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/krishna-kumar-verma/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="#top">Back to top ↑</a></div></div></footer>
+  </div>
+
+  <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-top"><div><span class="eyebrow" id="modalEyebrow">Project concept</span><h3 id="modalTitle">Project title</h3></div><button class="modal-close" id="modalClose" aria-label="Close project details"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/></svg></button></div>
+      <p id="modalDescription"></p>
+      <strong style="font-size:12px; display:block; margin:18px 0 8px;">Design considerations</strong>
+      <ul id="modalList"></ul>
+      <div class="modal-tags" id="modalTags"></div>
+      <p style="font-size:10px; margin-bottom:0;">This is a portfolio concept card, not a claim of a delivered client project. Replace with verified case-study details before publishing.</p>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      const projectDetails = {
+        "android-platform": {
+          eyebrow: "Native Android · Architecture",
+          title: "Modular Android platform",
+          description: "An architecture case study would show how feature boundaries, domain rules, and data access can stay understandable as an Android product expands.",
+          bullets: ["Separate UI, business rules, and data access with clear contracts.", "Use lifecycle-aware state collection and predictable UI state.", "Keep high-value business logic testable without a device UI.", "Track startup, rendering, and crash signals over time."],
+          tags: ["Kotlin", "Jetpack Compose", "MVVM", "Clean Architecture"]
+        },
+        "react-native": {
+          eyebrow: "Cross-platform · Delivery",
+          title: "React Native at scale",
+          description: "A practical delivery story should explain which logic is shared, where native integration is justified, and how teams keep release risk under control.",
+          bullets: ["Define shared feature modules and platform-specific seams.", "Profile JS, rendering, and native performance separately.", "Automate type checks, tests, build variants, and release steps.", "Make OTA update policies and rollback paths explicit."],
+          tags: ["React Native", "TypeScript", "Release engineering", "Testing"]
+        },
+        "mcp-workflows": {
+          eyebrow: "AI systems · Integration",
+          title: "LLM + MCP workflow",
+          description: "An MCP-enabled workflow connects a model to well-defined tools and resources, while the application remains responsible for permissions, validation, and user-visible outcomes.",
+          bullets: ["Expose small tools with clear input and output schemas.", "Validate tool arguments and scope credentials to the minimum needed.", "Ask for user approval before consequential external actions.", "Log tool calls and handle timeouts, failures, and retries."],
+          tags: ["MCP", "Tool calling", "Schema validation", "Observability"]
+        },
+        "offline-first": {
+          eyebrow: "Android · Reliability",
+          title: "Offline-first data flow",
+          description: "This concept focuses on making an app usable during connectivity gaps while designing sync as an explicit, testable part of the product.",
+          bullets: ["Treat local data as a deliberate source for the UI.", "Use durable background work with constraints and retries.", "Define conflict resolution and idempotency rules.", "Communicate pending, synced, and failed states to users."],
+          tags: ["Room", "WorkManager", "Repository", "Sync"]
+        },
+        "quality-loop": {
+          eyebrow: "Engineering enablement · Quality",
+          title: "Performance & quality loop",
+          description: "This concept turns quality into a continuous feedback loop rather than a gate at the end of the release cycle.",
+          bullets: ["Set useful thresholds for crashes, startup, and responsiveness.", "Combine focused unit and integration tests with targeted UI tests.", "Use CI checks and code review to catch regressions early.", "Prioritize work from production signals and user impact."],
+          tags: ["CI/CD", "Crash reporting", "Profiling", "Test strategy"]
+        },
+        "rag-knowledge": {
+          eyebrow: "Applied AI · Retrieval",
+          title: "Grounded knowledge assistant",
+          description: "A basic RAG application retrieves relevant source material before asking the model to answer, making grounding and evaluation part of the system design.",
+          bullets: ["Chunk and index content with traceable source metadata.", "Retrieve and optionally rerank relevant passages for each query.", "Include citations or source links and handle missing evidence honestly.", "Measure answer quality alongside latency and token cost."],
+          tags: ["RAG", "Embeddings", "Vector search", "Evaluation"]
+        }
+      };
+
+      const filterButtons = Array.from(document.querySelectorAll(".filter-button"));
+      const projectCards = Array.from(document.querySelectorAll(".project-card"));
+      const countLabel = document.getElementById("projectCount");
+      const emptyState = document.getElementById("emptyState");
+      filterButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          const filter = button.dataset.filter;
+          let count = 0;
+          filterButtons.forEach(function (item) { item.setAttribute("aria-pressed", String(item === button)); });
+          projectCards.forEach(function (card) {
+            const visible = filter === "all" || card.dataset.category === filter;
+            card.hidden = !visible;
+            if (visible) count += 1;
+          });
+          countLabel.textContent = "Showing " + count + (count === 1 ? " concept" : " concepts");
+          emptyState.style.display = count ? "none" : "block";
+        });
+      });
+
+      const modal = document.getElementById("projectModal");
+      const modalClose = document.getElementById("modalClose");
+      let lastFocused = null;
+      function openModal(projectId) {
+        const data = projectDetails[projectId];
+        if (!data) return;
+        lastFocused = document.activeElement;
+        document.getElementById("modalEyebrow").textContent = data.eyebrow;
+        document.getElementById("modalTitle").textContent = data.title;
+        document.getElementById("modalDescription").textContent = data.description;
+        const list = document.getElementById("modalList");
+        list.replaceChildren();
+        data.bullets.forEach(function (item) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          list.appendChild(li);
+        });
+        const tags = document.getElementById("modalTags");
+        tags.replaceChildren();
+        data.tags.forEach(function (item) {
+          const span = document.createElement("span");
+          span.textContent = item;
+          tags.appendChild(span);
+        });
+        modal.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        modalClose.focus();
+      }
+      function closeModal() {
+        modal.classList.remove("is-open");
+        document.body.style.overflow = "";
+        if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+      }
+      document.querySelectorAll("[data-open]").forEach(function (button) {
+        button.addEventListener("click", function () { openModal(button.dataset.open); });
+      });
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener("click", function (event) { if (event.target === modal) closeModal(); });
+      document.addEventListener("keydown", function (event) { if (event.key === "Escape" && modal.classList.contains("is-open")) closeModal(); });
+
+      const menuButton = document.getElementById("mobileMenuButton");
+      const navLinks = document.getElementById("navLinks");
+      menuButton.addEventListener("click", function () {
+        const isOpen = navLinks.classList.toggle("open");
+        menuButton.setAttribute("aria-expanded", String(isOpen));
+        menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      });
+      navLinks.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          navLinks.classList.remove("open");
+          menuButton.setAttribute("aria-expanded", "false");
+          menuButton.setAttribute("aria-label", "Open navigation");
+        });
+      });
+
+      const form = document.getElementById("contactForm");
+      const formMessage = document.getElementById("formMessage");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const name = document.getElementById("contactName").value.trim();
+        formMessage.textContent = "Thanks, " + name + ". Your sample message is ready in this preview, but it has not been sent or stored.";
+        formMessage.style.display = "block";
+        showToast("Preview only — no message was sent.");
+      });
+
+      const toast = document.getElementById("toast");
+      let toastTimeout;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        window.clearTimeout(toastTimeout);
+        toastTimeout = window.setTimeout(function () { toast.classList.remove("show"); }, 2800);
+      }
+    })();
+  </script>
+</body>
+</html>
